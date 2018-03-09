@@ -88,8 +88,6 @@ if "resources" in job_properties:
         arg_dict["mem"] = resources["mem"] * 1000
     if "ntasks" in resources and arg_dict["ntasks"] is None:
         arg_dict["ntasks"] = resources["ntasks"]
-    if "threads" in resources and arg_dict["threads"] is None:
-        arg_dict["ntasks"] = resources["threads"]
     #if "mem" in resources and arg_dict["mem"] is None:
     #    arg_dict["mem"] = resources["mem"]
 
