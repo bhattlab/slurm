@@ -1,5 +1,6 @@
 {
-    "account": "",
-    "partition": "",
-    "profile_name": "slurm"
+    "account": "asbhatt",
+    "partition": "batch",
+    "profile_name": "scg",
+    "runtime": "6:00:00"
 }

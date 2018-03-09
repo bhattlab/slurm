@@ -84,7 +84,10 @@ if "resources" in job_properties:
             arg_dict["time"] = resources["walltime"]
     if "mem" in resources and arg_dict["mem"] is None:
         arg_dict["mem"] = resources["mem"]
-
+    if "ntasks" in resources and arg_dict["ntasks"] is None:
+        arg_dict["ntasks"] = resources["ntasks"]
+    #if "mem" in resources and arg_dict["mem"] is None:
+    #    arg_dict["mem"] = resources["mem"]
 # Threads
 if "threads" in job_properties:
     arg_dict["ntasks"] = job_properties["threads"]
@@ -108,6 +111,11 @@ if arg_dict["partition"] is None:
 if arg_dict["account"] is None:
     if "{{cookiecutter.account}}" != "":
         arg_dict["account"] = "{{cookiecutter.account}}"
+
+#set default runtime
+if arg_dict["account"] is None:
+    if "{{cookiecutter.runtime}}" != "":
+        arg_dict["account"] = "{{cookiecutter.runtime}}"
 
 opts = ""
 for k, v in arg_dict.items():
