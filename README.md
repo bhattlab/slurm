@@ -1,6 +1,7 @@
 # slurm
 
-This profile configures Snakemake to run on the [SLURM Workload Manager](https://slurm.schedmd.com/)
+This profile configures Snakemake to run on the [SLURM Workload Manager](https://slurm.schedmd.com/) with modifications to suit
+users of SCG in the Bhatt lab.
 
 ## Setup
 
@@ -10,11 +11,11 @@ To deploy this profile, run
 
 	mkdir -p ~/.config/snakemake
 	cd ~/.config/snakemake
-	cookiecutter https://github.com/Snakemake-Profiles/slurm.git
+	cookiecutter https://github.com/bhattlab/slurm.git
 
 Then, you can run Snakemake with
 
-	snakemake --profile slurm ...
+	snakemake --profile scg ...
 
 
 ### Resources
@@ -23,6 +24,7 @@ The following resources are supported by on a per-rule basis:
 
 - **mem**: set the memory resource request in mb.
 - **walltime**, **runtime**: set the time resource in min.
+- **ntasks**: set the number of cpus
 
 
 ## Tests
