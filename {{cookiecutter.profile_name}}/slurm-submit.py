@@ -79,15 +79,20 @@ if "resources" in job_properties:
     resources = job_properties["resources"]
     if arg_dict["time"] is None:
         if "runtime" in resources:
-            arg_dict["time"] = resources["runtime"]
+            arg_dict["time"] = resources["runtime"] * 60
         elif "walltime" in resources:
-            arg_dict["time"] = resources["walltime"]
+            arg_dict["time"] = resources["walltime"] * 60
+        elif "time" in resources:
+            arg_dict["time"] = resources["time"] * 60
     if "mem" in resources and arg_dict["mem"] is None:
-        arg_dict["mem"] = resources["mem"]
+        arg_dict["mem"] = resources["mem"] * 1000
     if "ntasks" in resources and arg_dict["ntasks"] is None:
         arg_dict["ntasks"] = resources["ntasks"]
+    if "threads" in resources and arg_dict["threads"] is None:
+        arg_dict["ntasks"] = resources["threads"]
     #if "mem" in resources and arg_dict["mem"] is None:
     #    arg_dict["mem"] = resources["mem"]
+
 # Threads
 if "threads" in job_properties:
     arg_dict["ntasks"] = job_properties["threads"]
