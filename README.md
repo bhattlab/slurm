@@ -26,6 +26,34 @@ The following resources are supported by on a per-rule basis:
 - **walltime**, **runtime**: set the time resource in min.
 - **ntasks**: set the number of cpus
 
+Example rule that defines resource requirements:
+
+	rule bwa_align:
+	    input:
+		"{samp}/idx/{samp}.fa".format(samp=config['sample']),
+		config['reads1'],
+		#config['reads2'],
+		"{samp}/idx/{samp}.amb".format(samp=config['sample']),
+		"{samp}/idx/{samp}.ann".format(samp=config['sample']),
+		"{samp}/idx/{samp}.bwt".format(samp=config['sample']),
+		"{samp}/idx/{samp}.pac".format(samp=config['sample']),
+		"{samp}/idx/{samp}.sa".format(samp=config['sample'])
+	    log:
+		"{samp}/logs/bwa_mem.log".format(samp=config['sample'])
+	    output:
+		"{samp}/{samp}.bam".format(samp=config['sample'])
+	    resources:
+		mem=32,
+		time=48,
+		ntasks=24
+	    shell:
+		"bwa mem -t 24 {samp}/idx/{samp} {r1} {r2} ".format(
+		    samp=config['sample'],
+		    r1 = config['reads1'],
+		    r2 = config['reads2']
+		    ) +
+		" | samtools sort --threads 23 > {samp}/{samp}.bam".format(samp=config['sample'])
+
 
 ## Tests
 
