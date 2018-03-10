@@ -100,15 +100,19 @@ opt_keys = ["array", "account", "begin", "cpus_per_task",
             "mail_user", "ntasks", "nodes", "output", "partition",
             "quiet", "time", "wrap", "constraint", "mem"]
 
-# Set default partition
-if arg_dict["partition"] is None:
-    if not "{{cookiecutter.partition}}":
-        # partitions and SLURM - If not specified, the default behavior is to
-        # allow the slurm controller to select the default partition as
-        # designated by the system administrator.
-        opt_keys.remove("partition")
-    else:
-        arg_dict["partition"] = "{{cookiecutter.partition}}"
+
+if 'partition' in job_properties['cluster']:
+    #override the default behavior and allow specification of partition when required.
+    arg_dict['partition'] = job_properties['cluster']['partition'] #
+else:
+    if arg_dict["partition"] is None:
+        if not "{{cookiecutter.partition}}":
+            # partitions and SLURM - If not specified, the default behavior is to
+            # allow the slurm controller to select the default partition as
+            # designated by the system administrator.
+            opt_keys.remove("partition")
+        else:
+            arg_dict["partition"] = "{{cookiecutter.partition}}"
 
 # Set default account
 if arg_dict["account"] is None:
