@@ -84,10 +84,10 @@ if "resources" in job_properties:
             arg_dict["time"] = resources["walltime"] * 60
         elif "time" in resources:
             arg_dict["time"] = resources["time"] * 60
+        else:
+            arg_dict['time'] = "{{cookiecutter.runtime}}"
     if "mem" in resources and arg_dict["mem"] is None:
         arg_dict["mem"] = resources["mem"] * 1000
-    if "ntasks" in resources and arg_dict["ntasks"] is None:
-        arg_dict["ntasks"] = resources["ntasks"]
     #if "mem" in resources and arg_dict["mem"] is None:
     #    arg_dict["mem"] = resources["mem"]
 
