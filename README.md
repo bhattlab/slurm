@@ -11,6 +11,7 @@ To deploy this profile, run
 
 	mkdir -p ~/.config/snakemake
 	cd ~/.config/snakemake
+	pip install cookiecutter
 	cookiecutter https://github.com/bhattlab/slurm.git
 
 Then, you can run Snakemake with
