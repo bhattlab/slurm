@@ -85,21 +85,21 @@ if "resources" in job_properties:
         elif "time" in resources:
             arg_dict["time"] = resources["time"] * 60
         else:
-            arg_dict['time'] = "{{cookiecutter.runtime}}"
+            arg_dict['time'] = "1:00:00"
     if "mem" in resources and arg_dict["mem"] is None:
         arg_dict["mem"] = resources["mem"] * 1000
-    #if "mem" in resources and arg_dict["mem"] is None:
-    #    arg_dict["mem"] = resources["mem"]
+    if "cores" in resources:
+       arg_dict["cpus-per-task"] = resources["cores"]
 
 # Threads
 if "threads" in job_properties:
-    arg_dict["ntasks"] = job_properties["threads"]
+    arg_dict["cpus-per-task"] = job_properties["threads"]
 
 #job name
 arg_dict["job-name"] = job_properties["rule"]
 
 
-opt_keys = ["array", "account", "begin", "cpus_per_task",
+opt_keys = ["array", "account", "begin", "cpus-per-task",
             "depedency", "workdir", "error", "job-name", "mail_type",
             "mail_user", "ntasks", "nodes", "output", "partition",
             "quiet", "time", "wrap", "constraint", "mem"]
@@ -110,23 +110,23 @@ if 'partition' in job_properties['cluster']:
     arg_dict['partition'] = job_properties['cluster']['partition'] #
 else:
     if arg_dict["partition"] is None:
-        if not "{{cookiecutter.partition}}":
+        if not "batch":
             # partitions and SLURM - If not specified, the default behavior is to
             # allow the slurm controller to select the default partition as
             # designated by the system administrator.
             opt_keys.remove("partition")
         else:
-            arg_dict["partition"] = "{{cookiecutter.partition}}"
+            arg_dict["partition"] = "batch"
 
 # Set default account
 if arg_dict["account"] is None:
-    if "{{cookiecutter.account}}" != "":
-        arg_dict["account"] = "{{cookiecutter.account}}"
+    if "asbhatt" != "":
+        arg_dict["account"] = "asbhatt"
 
 #set default runtime
 if arg_dict["account"] is None:
-    if "{{cookiecutter.runtime}}" != "":
-        arg_dict["account"] = "{{cookiecutter.runtime}}"
+    if "1:00:00" != "":
+        arg_dict["account"] = "1:00:00"
 
 opts = ""
 for k, v in arg_dict.items():
