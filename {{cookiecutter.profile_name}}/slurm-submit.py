@@ -94,7 +94,7 @@ if "resources" in job_properties:
 # Threads
 if "threads" in job_properties:
     arg_dict["cpus-per-task"] = job_properties["threads"]
-
+    
 #job name
 arg_dict["job-name"] = job_properties["rule"]
 
